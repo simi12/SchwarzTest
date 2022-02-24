@@ -11,6 +11,7 @@ Refer PDF file- ang.drawio.pdf
 ## How to run
 1. Pull this project in  Java based IDE (Project is generated in Spring tool suite - version:4.12.1.Release)
 2. Run AnagramFinder as Java application.
+3. AnagramThreadBasedFinder is small independent utility to execute same problem with threads
 
 ## Input File
 Stored in /src/resources/anagramListInputFile.txt
