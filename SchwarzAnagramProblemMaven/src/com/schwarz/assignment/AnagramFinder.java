@@ -8,11 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 public class AnagramFinder {
 
 	private String fileName = "src/resources/anagramInputFile.txt";
-	private HashMap<HashMap<Character, Integer>, ArrayList<String>> anagramListMap = new HashMap<>();
+	private HashMap<TreeMap<Character, Integer>, ArrayList<String>> anagramListMap = new HashMap<>();
 
 	/*
 	 * This method will fetch the data from file into ArrayList
@@ -62,18 +63,22 @@ public class AnagramFinder {
 	/*
 	 * This method prepares a map of character counts in given string
 	 */
-	private HashMap<Character, Integer> characterCountMap(String inputString) {
+	private TreeMap<Character, Integer> characterCountMap(String inputString) {
 
-		HashMap<Character, Integer> characterCountHashMap = new HashMap<>();
+		
+		TreeMap<Character, Integer> sortedCharacterCountMap=new TreeMap<>();
+		
 		for (int i = 0; i < inputString.length(); i++) {
-			if (characterCountHashMap.containsKey(inputString.charAt(i))) {
-				int getCurrentCount = characterCountHashMap.get(inputString.charAt(i));
-				characterCountHashMap.put(inputString.charAt(i), ++getCurrentCount);
+			if (sortedCharacterCountMap.containsKey(inputString.charAt(i))) {
+				int getCurrentCount = sortedCharacterCountMap.get(inputString.charAt(i));
+				sortedCharacterCountMap.put(inputString.charAt(i), ++getCurrentCount);
 			} else {
-				characterCountHashMap.put(inputString.charAt(i), 1);
+				sortedCharacterCountMap.put(inputString.charAt(i), 1);
 			}
 		}
-		return characterCountHashMap;
+	
+		
+		return sortedCharacterCountMap;
 	}
 
 	/*
@@ -82,8 +87,8 @@ public class AnagramFinder {
 	 * existing key If key is not present new value is added to ArrayList
 	 */
 
-	private void getAnagramListMap(HashMap<Character, Integer> characterCountMap, String inputWord,
-			HashMap<HashMap<Character, Integer>, ArrayList<String>> anagramListMap) {
+	private void getAnagramListMap(TreeMap<Character, Integer> characterCountMap, String inputWord,
+			HashMap<TreeMap<Character, Integer>, ArrayList<String>> anagramListMap) {
 
 		if (anagramListMap.containsKey(characterCountMap)) {
 			anagramListMap.get(characterCountMap).add(inputWord);
@@ -99,7 +104,7 @@ public class AnagramFinder {
 	 * greater than 1
 	 */
 
-	private void printAnagrams(HashMap<HashMap<Character, Integer>, ArrayList<String>> anagramListMap2) {
+	private void printAnagrams(HashMap<TreeMap<Character, Integer>, ArrayList<String>> anagramListMap2) {
 
 		anagramListMap2.forEach((anagKey, anagValue) -> {
 			anagValue.stream().filter(itr -> anagValue.size() > 1).map(str -> str + " ").forEach(System.out::print);
